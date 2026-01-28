@@ -1,62 +1,54 @@
-name: Generate Smooth Shark Header
+name: Generate Shark Header
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Her gece yarısı yenilenir
-  workflow_dispatch: # Manuel çalıştırma butonu ekler
+    - cron: "0 */12 * * *" # 12 saatte bir yenilenir
+  workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, master]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Create Shark SVG
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create Big Shark Image
         run: |
           mkdir -p dist
-          cat <<EOT > dist/shark-header.svg
-          <svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+          cat <<'EOT' > dist/shark.svg
+          <svg width="1000" height="200" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
             <style>
-              .ocean { fill: transparent; }
-              .shark-container {
-                animation: swim 12s linear infinite;
-              }
-              .tail {
-                animation: wag 0.5s ease-in-out infinite alternate;
-                transform-origin: 40px 100px;
-              }
-              @keyframes swim {
-                from { transform: translateX(-300px); }
+              .container { fill: transparent; }
+              .shark-group { animation: swim-across 12s linear infinite; }
+              .tail { animation: tail-wag 0.5s ease-in-out infinite alternate; transform-origin: 60px 100px; fill: #2c3e50; }
+              .body { fill: #34495e; }
+              @keyframes swim-across {
+                from { transform: translateX(-400px); }
                 to { transform: translateX(1100px); }
               }
-              @keyframes wag {
+              @keyframes tail-wag {
                 from { transform: rotate(-10deg); }
                 to { transform: rotate(10deg); }
               }
-              .text { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; fill: #00D1FF; font-size: 24px; font-weight: bold; opacity: 0.6; }
             </style>
-            <rect class="ocean" width="800" height="200" />
-            <text x="50%" y="180" text-anchor="middle" class="text">ULAS CANER SINAN | FULL STACK DEVELOPER</text>
-            
-            <g class="shark-container">
+            <rect class="container" width="1000" height="200" />
+            <g class="shark-group">
               <!-- Kuyruk -->
-              <path class="tail" fill="#2c3e50" d="M40,100 L0,70 L15,100 L0,130 Z" />
+              <path class="tail" d="M60,100 L0,70 L20,100 L0,130 Z" />
               <!-- Gövde -->
-              <path fill="#34495e" d="M40,100 C40,70 100,45 160,70 C200,85 230,100 230,100 C230,100 200,115 160,130 C100,155 40,130 40,100 Z" />
-              <!-- Sırt Yüzgeci -->
-              <path fill="#34495e" d="M110,72 L135,30 L160,72 Z" />
-              <!-- Yan Yüzgeç -->
-              <path fill="#2c3e50" d="M120,110 L100,140 L150,125 Z" />
+              <path class="body" d="M60,100 C60,65 140,35 220,75 C280,100 340,100 340,100 C340,100 280,125 220,150 C140,185 60,145 60,100 Z" />
+              <!-- Yüzgeç -->
+              <path class="body" d="M160,85 L190,15 L230,80 Z" />
               <!-- Göz -->
-              <circle fill="white" cx="200" cy="92" r="3" />
-              <circle fill="black" cx="202" cy="92" r="1.2" />
-              <!-- Solungaçlar -->
-              <path stroke="#1a252f" stroke-width="1.5" d="M180,85 Q185,100 180,115 M170,85 Q175,100 170,115" fill="none" />
+              <circle fill="white" cx="290" cy="95" r="3.5" />
+              <circle fill="black" cx="292" cy="95" r="1.5" />
             </g>
           </svg>
           EOT
 
-      - name: Deploy to Output Branch
+      - name: Push to Branch
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
