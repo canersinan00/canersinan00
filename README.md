@@ -26,4 +26,6 @@
 
 <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=canersinan00&show_icons=true&locale=en&layout=compact" alt="canersinan00" /></p>
 
-![Shark Animation](https://raw.githubusercontent.com/canersinan00/canersinan00/output/shark.svg)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/canersinan00/canersinan00/output/shark-header.svg" width="100%" />
+</p>
