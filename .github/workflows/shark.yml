@@ -1,55 +1,32 @@
-name: Generate Shark Header
+name: Generate Shark Animation
 
 on:
   schedule:
-    - cron: "0 */12 * * *" # 12 saatte bir yenilenir
+    - cron: "0 */12 * * *" 
   workflow_dispatch:
   push:
-    branches: [main, master]
+    branches:
+    - main
 
 jobs:
-  build:
+  generate:
+    permissions: 
+      contents: write
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Create Big Shark Image
-        run: |
-          mkdir -p dist
-          cat <<'EOT' > dist/shark.svg
-          <svg width="1000" height="200" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
-            <style>
-              .container { fill: transparent; }
-              .shark-group { animation: swim-across 12s linear infinite; }
-              .tail { animation: tail-wag 0.5s ease-in-out infinite alternate; transform-origin: 60px 100px; fill: #2c3e50; }
-              .body { fill: #34495e; }
-              @keyframes swim-across {
-                from { transform: translateX(-400px); }
-                to { transform: translateX(1100px); }
-              }
-              @keyframes tail-wag {
-                from { transform: rotate(-10deg); }
-                to { transform: rotate(10deg); }
-              }
-            </style>
-            <rect class="container" width="1000" height="200" />
-            <g class="shark-group">
-              <!-- Kuyruk -->
-              <path class="tail" d="M60,100 L0,70 L20,100 L0,130 Z" />
-              <!-- Gövde -->
-              <path class="body" d="M60,100 C60,65 140,35 220,75 C280,100 340,100 340,100 C340,100 280,125 220,150 C140,185 60,145 60,100 Z" />
-              <!-- Yüzgeç -->
-              <path class="body" d="M160,85 L190,15 L230,80 Z" />
-              <!-- Göz -->
-              <circle fill="white" cx="290" cy="95" r="3.5" />
-              <circle fill="black" cx="292" cy="95" r="1.5" />
-            </g>
-          </svg>
-          EOT
-
-      - name: Push to Branch
-        uses: crazy-max/ghaction-github-pages@v3
+      # Köpekbalığı Gri, Dolu Günler Kırmızı, Boş Günler Mavi
+      - name: generate-shark-svg
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/shark.svg?color_snake=#808080&color_dots=#e0f2fe,#f87171,#ef4444,#dc2626,#991b1b
+            
+      # 'output' branch'ine yükleme işlemi
+      - name: push-to-output-branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
           build_dir: dist
