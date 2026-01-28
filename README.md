@@ -27,5 +27,30 @@
 <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=canersinan00&show_icons=true&locale=en&layout=compact" alt="canersinan00" /></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/canersinan00/canersinan00/output/shark-header.svg" width="100%" />
+  <svg width="1000" height="200" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      @keyframes swim {
+        0% { transform: translateX(-300px); }
+        100% { transform: translateX(1100px); }
+      }
+      @keyframes tail {
+        0% { transform: rotate(-10deg); }
+        100% { transform: rotate(10deg); }
+      }
+      .shark { animation: swim 12s linear infinite; }
+      .tail { animation: tail 0.5s ease-in-out infinite alternate; transform-origin: 50px 100px; }
+    </style>
+    
+    <g class="shark">
+      <!-- Köpekbalığı Silueti -->
+      <path class="tail" fill="#4B91FF" d="M50,100 L0,70 L20,100 L0,130 Z" />
+      <path fill="#0077be" d="M50,100 C50,70 120,40 200,80 C260,105 320,100 320,100 C320,100 260,120 200,150 C120,190 50,160 50,100 Z" />
+      <path fill="#0077be" d="M150,85 L180,20 L220,80 Z" /> <!-- Üst Yüzgeç -->
+      <!-- Göz -->
+      <circle fill="white" cx="270" cy="95" r="3" />
+    </g>
+    
+    <!-- Su Efekti (Opsiyonel) -->
+    <rect x="0" y="190" width="1000" height="2" fill="#00D1FF" opacity="0.3" />
+  </svg>
 </p>
