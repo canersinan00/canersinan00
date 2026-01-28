@@ -1,0 +1,31 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .shark {
+      animation: swim 8s linear infinite;
+    }
+    .fin {
+      animation: wiggle 0.8s ease-in-out infinite;
+      transform-origin: 50% 50%;
+    }
+    @keyframes swim {
+      from { transform: translateX(-200px); }
+      to { transform: translateX(1000px); }
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+    }
+  </style>
+  
+  <g class="shark">
+    <!-- Köpekbalığı Gövdesi -->
+    <path fill="#2c3e50" d="M150,100 C150,70 100,50 50,70 C20,80 0,100 0,100 C0,100 20,120 50,130 C100,150 150,130 150,100 Z" stroke="#34495e" stroke-width="2"/>
+    <!-- Üst Yüzgeç -->
+    <path class="fin" fill="#2c3e50" d="M80,75 L100,40 L120,75 Z" />
+    <!-- Kuyruk -->
+    <path class="fin" fill="#2c3e50" d="M150,100 L180,70 L180,130 Z" />
+    <!-- Göz -->
+    <circle fill="white" cx="30" cy="95" r="3" />
+    <circle fill="red" cx="30" cy="95" r="1" />
+  </g>
+</svg>
