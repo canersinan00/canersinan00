@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, I'm Ulaş Caner Sinan</h1>
 <h3 align="center">Full-Stack Developer | Software Engineer | Business Analyst</h3>
 
-- 🔭 I’m currently working on **Developer | Business Analyst**
+- 🔭 I’m currently working in **Software Development and Analytics**
 
 - 🌱 I’m currently learning **Asp.Net, MVC, Entity Framework, UX/UI Responsive Web and Mobile Developing with React and ReactNative**
 
